@@ -1,14 +1,14 @@
 'use client';
 import useSWR from 'swr';
+import { apiClient } from '@/lib/apiClient';
 
 async function createSession() {
-  const res = await fetch('/api/session/new', { method: 'POST' });
-  if (!res.ok) throw new Error('erro');
-  return res.json();
+  return apiClient('/api/session/new', { method: 'POST' });
 }
 
 export default function SessionPage() {
-  const { data, mutate } = useSWR('/api/session/new', createSession);
+  const { data, error, mutate } = useSWR('/api/session/new', createSession);
+  if (error) return <div className="p-4">{error.message}</div>;
   if (!data) return <div className="p-4">Gerando sessão...</div>;
 
   return (

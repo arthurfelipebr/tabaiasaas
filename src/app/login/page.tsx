@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { apiClient } from '@/lib/apiClient';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,9 +11,13 @@ export default function Login() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-    if (res.ok) router.push('/dashboard');
-    else setError('Credenciais inválidas');
+    try {
+      await apiClient('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+      router.push('/dashboard');
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+      else setError('Erro inesperado');
+    }
   }
 
   return (
