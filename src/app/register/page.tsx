@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { apiClient } from '@/lib/apiClient';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -10,9 +11,13 @@ export default function Register() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch('/api/register', { method: 'POST', body: JSON.stringify({ email, password }) });
-    if (res.ok) router.push('/login');
-    else setError('Erro ao registrar');
+    try {
+      await apiClient('/api/register', { method: 'POST', body: JSON.stringify({ email, password }) });
+      router.push('/login');
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+      else setError('Erro inesperado');
+    }
   }
 
   return (
