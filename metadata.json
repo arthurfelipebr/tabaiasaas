@@ -1,0 +1,6 @@
+{
+  "name": "Supplier Price Optimizer",
+  "description": "A web application to track supplier prices from WhatsApp messages using Gemini API for data extraction, helping to find the best deals.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
