@@ -94,14 +94,14 @@ The current project structure is minimal (`index.html`, `index.tsx`). For a robu
 5.  **Run Development Server (if `package.json` and build tool are set up):**
     ```bash
     # Example for Vite
-    API_KEY="YOUR_GEMINI_KEY" npm run dev
+    API_KEY="YOUR_GEMINI_KEY" npm run dev -- --port 3005
     ```
     Or, for a simple static server (e.g., `serve` package, remember API key issue):
     ```bash
     npm install -g serve
     serve .
     ```
-    The application will typically be available at `http://localhost:3000` or another port.
+    The application will typically be available at `http://localhost:3005` by default.
 
 ## Deployment to VPS (Ubuntu)
 
